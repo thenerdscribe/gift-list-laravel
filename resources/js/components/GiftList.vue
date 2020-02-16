@@ -7,14 +7,16 @@
       <b-button @click="clearSearch">Clear Search</b-button>
       <b-button type="submit">Search Gifts</b-button>
     </b-form>
-    <ul>
+    <ul class="gift-list">
       <li v-bind:key="gift.id" v-for="gift in this.parsedGifts">
-        <a :href="gift.link">{{ gift.title }}</a>
-        <strong>${{ gift.price }}</strong>
-        <a :href="'/gift/claim/' + gift.id" v-if="parsedClaims && !gift.purchaser_id">Claim</a>
-        <span v-if="parsedClaims && gift.purchaser_id">Claimed</span>
-        <span v-if="gift.receiver">for {{ gift.receiver.name }}</span>
-        <b-button v-if="gift.receiver" @click="unClaim(gift.id, $event)">Unclaim</b-button>
+        <gift
+          :title="gift.title"
+          :description="gift.description"
+          :price="gift.price"
+          :link="gift.url"
+          :claimedStatus="parsedClaims"
+          :gift="gift"
+        ></gift>
       </li>
     </ul>
   </div>
@@ -64,11 +66,13 @@ export default {
   },
   computed: {
     parsedGifts() {
+      var gifts;
       if (typeof this.localGifts === "string") {
-        return JSON.parse(this.localGifts);
+        gifts = JSON.parse(this.localGifts);
       } else {
-        return this.localGifts;
+        gifts = this.localGifts;
       }
+      return gifts.sort((a, b) => Number(a.price) > Number(b.price));
     },
     parsedClaims() {
       return JSON.parse(this.showClaims);

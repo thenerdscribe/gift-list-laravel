@@ -10884,3 +10884,8 @@ a.text-dark:focus {
   }
 }
 
+.gift-list {
+  list-style: none;
+  padding: 0;
+}
+
