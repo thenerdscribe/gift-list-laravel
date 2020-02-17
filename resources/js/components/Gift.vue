@@ -22,6 +22,14 @@
 </template>
 <script>
 export default {
-  props: ["title", "description", "price", "link", "claimedStatus", "gift"]
+  props: [
+    "title",
+    "description",
+    "price",
+    "link",
+    "claimedStatus",
+    "gift",
+    "unClaim"
+  ]
 };
 </script>

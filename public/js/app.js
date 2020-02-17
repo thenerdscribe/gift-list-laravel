@@ -163,7 +163,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["title", "description", "price", "link", "claimedStatus", "gift"]
+  props: ["title", "description", "price", "link", "claimedStatus", "gift", "unClaim"]
 });
 
 /***/ }),
@@ -310,6 +310,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["gifts", "showClaims", "user", "filter"],
   data: function data() {
@@ -344,10 +345,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   filteredGifts = data.filter(function (gift) {
                     return gift[_this.filter] == user;
                   });
-                  console.log(data, filteredGifts);
                   _this.localGifts = filteredGifts;
 
-                case 6:
+                case 5:
                 case "end":
                   return _context.stop();
               }
@@ -55352,7 +55352,8 @@ var render = function() {
                   price: gift.price,
                   link: gift.url,
                   claimedStatus: _vm.parsedClaims,
-                  gift: gift
+                  gift: gift,
+                  unClaim: _vm.unClaim
                 }
               })
             ],

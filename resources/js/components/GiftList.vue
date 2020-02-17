@@ -16,6 +16,7 @@
           :link="gift.url"
           :claimedStatus="parsedClaims"
           :gift="gift"
+          :unClaim="unClaim"
         ></gift>
       </li>
     </ul>
@@ -41,7 +42,6 @@ export default {
         .then(async response => {
           const data = await response.json();
           const filteredGifts = data.filter(gift => gift[this.filter] == user);
-          console.log(data, filteredGifts);
           this.localGifts = filteredGifts;
         });
     },
