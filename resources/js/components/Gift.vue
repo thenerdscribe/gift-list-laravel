@@ -19,9 +19,6 @@
 </template>
 <script>
 export default {
-  props: ["title", "description", "price", "link", "claimedStatus", "gift"],
-  mounted() {
-    console.log(this.link);
-  }
+  props: ["title", "description", "price", "link", "claimedStatus", "gift"]
 };
 </script>

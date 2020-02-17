@@ -59,7 +59,6 @@ export default {
       event.preventDefault();
       this.$http.patch(`/gift/unclaim/${giftId}`).then(async response => {
         const data = await response.json();
-        console.log(data);
         this.localGifts = data;
       });
     }
