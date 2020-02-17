@@ -14,6 +14,9 @@
         <span v-if="this.claimedStatus && this.gift.purchaser_id">Claimed</span>
         <span v-if="this.gift.receiver">for {{ gift.receiver.name }}</span>
       </b-card-text>
+      <b-card-text>
+        <b-button v-if="gift.receiver" @click="unClaim(gift.id, $event)">Unclaim</b-button>
+      </b-card-text>
     </b-card>
   </div>
 </template>

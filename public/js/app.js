@@ -159,11 +159,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["title", "description", "price", "link", "claimedStatus", "gift"],
-  mounted: function mounted() {
-    console.log(this.link);
-  }
+  props: ["title", "description", "price", "link", "claimedStatus", "gift"]
 });
 
 /***/ }),
@@ -416,10 +416,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 case 2:
                   data = _context3.sent;
-                  console.log(data);
                   _this3.localGifts = data;
 
-                case 5:
+                case 4:
                 case "end":
                   return _context3.stop();
               }
@@ -55061,6 +55060,26 @@ var render = function() {
               _vm._v(" "),
               this.gift.receiver
                 ? _c("span", [_vm._v("for " + _vm._s(_vm.gift.receiver.name))])
+                : _vm._e()
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-card-text",
+            [
+              _vm.gift.receiver
+                ? _c(
+                    "b-button",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.unClaim(_vm.gift.id, $event)
+                        }
+                      }
+                    },
+                    [_vm._v("Unclaim")]
+                  )
                 : _vm._e()
             ],
             1
