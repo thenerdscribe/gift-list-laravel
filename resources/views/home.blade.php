@@ -32,7 +32,6 @@
                         <gift-list
                             gifts="{{ $purchases }}"
                             show-claims="true"
-                            user="{{$currentUser}}"
                             ></gift-list>
                     @endif
                 </div>

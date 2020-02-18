@@ -3,6 +3,10 @@
 @section('content')
     <div class="container">
         @csrf
-        <gift-create></gift-create>
+        @if ( $gift )
+            <gift-create method="patch" url="/gift/{{ $gift->id }}" gift="{{ $gift }}" ></gift-create>
+        @else
+            <gift-create method="post" url="/gift/create/"></gift-create>
+        @endif
     </div>
 @endsection

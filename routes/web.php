@@ -11,16 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
+Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/gift', 'GiftController@create')->name('gift-create-form');
 Route::post('/gift/create', 'GiftController@store')->name('gift-create');
+Route::get('/gift/update/{giftId}', 'GiftController@show');
+Route::patch('/gift/{giftId}', 'GiftController@update');
+Route::delete('/gift/{giftId}', 'GiftController@destroy');
 Route::get('/gift/search/', 'GiftController@search');
 Route::get('/gift/claim/{giftId}', 'GiftController@claimConfirm');
 Route::patch('/gift/unclaim/{giftId}', 'GiftController@unclaim');

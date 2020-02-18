@@ -17,6 +17,8 @@
           :claimedStatus="parsedClaims"
           :gift="gift"
           :unClaim="unClaim"
+          :destroy="destroy"
+          :currentUser="user"
         ></gift>
       </li>
     </ul>
@@ -58,6 +60,13 @@ export default {
     unClaim(giftId, event) {
       event.preventDefault();
       this.$http.patch(`/gift/unclaim/${giftId}`).then(async response => {
+        const data = await response.json();
+        this.localGifts = data;
+      });
+    },
+    destroy(giftId, event) {
+      event.preventDefault();
+      this.$http.delete(`/gift/${giftId}`).then(async response => {
         const data = await response.json();
         this.localGifts = data;
       });

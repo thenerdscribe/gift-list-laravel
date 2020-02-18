@@ -2,7 +2,14 @@
   <div>
     <b-form @submit="onSubmit" @reset="onReset" v-if="show">
       <b-form-group id="input-group-title" label="Gift Title" label-for="title">
-        <b-form-input id="title" v-model="form.title" type="text" required placeholder="Enter gift"></b-form-input>
+        <b-form-input
+          id="title"
+          v-model="form.title"
+          description="What is your gift called?"
+          type="text"
+          required
+          placeholder="Enter gift"
+        ></b-form-input>
       </b-form-group>
       <b-form-group id="input-group-price" label="Price" label-for="price">
         <b-form-input
@@ -37,7 +44,7 @@
       <b-button type="submit" variant="primary">Submit</b-button>
     </b-form>
     <b-alert :show="status" dismissible variant="success">
-      <p>Successfully added gift!</p>
+      <p>Successfully {{ verb }} gift!</p>
     </b-alert>
     <b-alert :show="status === false" dismissible variant="danger">
       <p>Error in submitting your gift.</p>
@@ -46,7 +53,9 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
+  props: ["gift", "url", "method"],
   data() {
     return {
       status: null,
@@ -59,12 +68,39 @@ export default {
       show: true
     };
   },
+  mounted() {
+    console.log(this.gift);
+    if (this.parsedGift) {
+      this.form.title = this.parsedGift.title;
+      this.form.price = this.parsedGift.price;
+      this.form.description = this.parsedGift.description;
+      this.form.url = this.parsedGift.url;
+    }
+  },
+  computed: {
+    parsedGift() {
+      return JSON.parse(this.gift);
+    },
+    verb() {
+      console.log(this.method);
+      const verb = this.method === "post" ? "added" : "updated";
+      console.log(verb);
+      return verb;
+    }
+  },
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
-      this.$http
-        .post("/gift/create", this.form)
-        .then(() => this.onReset(evt))
+      axios({ url: this.url, method: this.method, data: this.form })
+        .then(() => {
+          if (this.method === "post") {
+            this.onReset(evt);
+          }
+          this.$nextTick(() => {
+            this.show = true;
+            this.status = true;
+          });
+        })
         .catch(e => (this.status = false));
     },
     onReset(evt) {
@@ -76,10 +112,6 @@ export default {
       this.form.url = "";
       // Trick to reset/clear native browser form validation state
       this.show = false;
-      this.$nextTick(() => {
-        this.show = true;
-        this.status = true;
-      });
     }
   }
 };

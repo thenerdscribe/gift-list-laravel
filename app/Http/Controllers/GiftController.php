@@ -6,6 +6,7 @@ use App\Gift;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class GiftController extends Controller
 {
@@ -56,9 +57,12 @@ class GiftController extends Controller
      * @param  \App\Gift  $gift
      * @return \Illuminate\Http\Response
      */
-    public function show(Gift $gift)
+    public function show(int $giftId)
     {
-        //
+        $gift = Gift::findOrFail($giftId);
+        return view('gift.create', [
+            'gift' => $gift
+        ]);
     }
 
     /**
@@ -68,9 +72,14 @@ class GiftController extends Controller
      * @param  \App\Gift  $gift
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Gift $gift)
+    public function update(Request $request, int $giftId)
     {
-        //
+        $gift = Gift::findOrFail($giftId);
+        $gift->title = $request->title;
+        $gift->description = $request->description;
+        $gift->url = $request->url;
+        $gift->price = $request->price;
+        $gift->save();
     }
 
     /**
@@ -79,9 +88,11 @@ class GiftController extends Controller
      * @param  \App\Gift  $gift
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Gift $gift)
+    public function destroy(int $giftId)
     {
-        //
+        Gift::destroy($giftId);
+        $gifts = Gift::where('receiver_id', Auth::id())->get();
+        return $gifts;
     }
 
     public function search(Request $request)

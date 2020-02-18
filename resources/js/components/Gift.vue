@@ -1,9 +1,9 @@
 <template>
   <div>
-    <b-card :title="this.title" :sub-title="this.price" class="mt-2 mb-2">
+    <b-card :title="this.title" :sub-title="'$' + this.price" class="mt-2 mb-2">
       <b-card-text v-if="this.description">{{ this.description }}</b-card-text>
       <b-card-text>
-        <b-link :href="this.link" v-if="this.link">Buy here for {{ this.price }}</b-link>
+        <b-link :href="this.link" v-if="this.link">Buy here for ${{ this.price }}</b-link>
       </b-card-text>
       <b-card-text>
         <b-link
@@ -16,6 +16,11 @@
       </b-card-text>
       <b-card-text>
         <b-button v-if="gift.receiver" @click="unClaim(gift.id, $event)">Unclaim</b-button>
+        <b-button
+          v-if="currentUser && claimedStatus === false"
+          @click="destroy(gift.id, $event)"
+        >Delete</b-button>
+        <b-link :href="'/gift/update/' + gift.id" v-if="currentUser && claimedStatus === false">Edit</b-link>
       </b-card-text>
     </b-card>
   </div>
@@ -29,7 +34,12 @@ export default {
     "link",
     "claimedStatus",
     "gift",
-    "unClaim"
-  ]
+    "unClaim",
+    "destroy",
+    "currentUser"
+  ],
+  mounted() {
+    console.log(this.title, this.claimedStatus, this.currentUser);
+  }
 };
 </script>
