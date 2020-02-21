@@ -15,7 +15,6 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index');
-Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/gift', 'GiftController@create')->name('gift-create-form');
 Route::post('/gift/create', 'GiftController@store')->name('gift-create');
