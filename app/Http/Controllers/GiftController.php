@@ -79,6 +79,10 @@ class GiftController extends Controller
         $gift->description = $request->description;
         $gift->url = $request->url;
         $gift->price = $request->price;
+        $gift->given = $request->given ?? $gift->given;
+        $gift->wrapped = $request->wrapped ?? $gift->wrapped;
+        $gift->received = $request->received ?? $gift->received;
+        $gift->purchased = $request->purchased ?? $gift->purchased;
         $gift->save();
     }
 
@@ -127,6 +131,10 @@ class GiftController extends Controller
     {
         $gift = Gift::findOrFail($giftId);
         $gift->purchaser_id = null;
+        $gift->given = false;
+        $gift->wrapped = false;
+        $gift->received = false;
+        $gift->purchased = false;
         $gift->save();
         $purchaseList = Gift::with('receiver')->where('purchaser_id', Auth::id())->get();
         return $purchaseList;

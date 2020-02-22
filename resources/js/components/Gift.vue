@@ -21,6 +21,22 @@
           @click="destroy(gift.id, $event)"
         >Delete</b-button>
         <b-link :href="'/gift/update/' + gift.id" v-if="currentUser && claimedStatus === false">Edit</b-link>
+        <b-card-text v-if="gift.receiver" class="mt-4">
+          <b-form style="display: flex;">
+            <b-form-group class="mx-1">
+              <b-form-checkbox name="purchased" v-model="purchased">Purchased?</b-form-checkbox>
+            </b-form-group>
+            <b-form-group class="mx-1">
+              <b-form-checkbox name="received" v-model="received">Received?</b-form-checkbox>
+            </b-form-group>
+            <b-form-group class="mx-1">
+              <b-form-checkbox name="wrapped" v-model="wrapped">Wrapped?</b-form-checkbox>
+            </b-form-group>
+            <b-form-group class="mx-1">
+              <b-form-checkbox name="given" v-model="given">Given?</b-form-checkbox>
+            </b-form-group>
+          </b-form>
+        </b-card-text>
       </b-card-text>
     </b-card>
   </div>
@@ -36,10 +52,22 @@ export default {
     "gift",
     "unClaim",
     "destroy",
-    "currentUser"
+    "currentUser",
+    "updateGift"
   ],
-  mounted() {
-    console.log(this.title, this.claimedStatus, this.currentUser);
+  data() {
+    return {
+      purchased: this.gift.purchased === 1,
+      received: this.gift.received === 1,
+      wrapped: this.gift.wrapped === 1,
+      given: this.gift.given === 1
+    };
+  },
+  watch: {
+    purchased(newVal, oldVal) {
+      console.log(newVal);
+      this.updateGift({ ...this.gift, purchased: newVal });
+    }
   }
 };
 </script>

@@ -19,6 +19,7 @@
           :unClaim="unClaim"
           :destroy="destroy"
           :currentUser="user"
+          :updateGift="updateGift"
         ></gift>
       </li>
     </ul>
@@ -70,6 +71,9 @@ export default {
         const data = await response.json();
         this.localGifts = data;
       });
+    },
+    updateGift(gift, event) {
+      this.$http.patch(`/gift/${gift.id}`, gift);
     }
   },
   computed: {
