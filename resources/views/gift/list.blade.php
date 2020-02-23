@@ -13,6 +13,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    <a href="/gift/newForSomeone/{{$user->id}}">Add a gift they don't have listed</a>
                     @if ($gifts->isEmpty())
                         <p>This person doesn't have any gifts listed yet</p>
                     @else

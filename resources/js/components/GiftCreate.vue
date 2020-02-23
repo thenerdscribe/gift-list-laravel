@@ -55,7 +55,7 @@
 <script>
 import axios from "axios";
 export default {
-  props: ["gift", "url", "method"],
+  props: ["gift", "url", "method", "purchaser", "receiver"],
   data() {
     return {
       status: null,
@@ -63,7 +63,9 @@ export default {
         title: "",
         price: "",
         description: "",
-        url: ""
+        url: "",
+        purchaser: this.purchaser,
+        receiver: this.receiver
       },
       show: true
     };
@@ -79,12 +81,12 @@ export default {
   },
   computed: {
     parsedGift() {
-      return JSON.parse(this.gift);
+      if (this.gift) {
+        return JSON.parse(this.gift);
+      }
     },
     verb() {
-      console.log(this.method);
       const verb = this.method === "post" ? "added" : "updated";
-      console.log(verb);
       return verb;
     }
   },

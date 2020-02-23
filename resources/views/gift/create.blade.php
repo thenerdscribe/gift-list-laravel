@@ -10,9 +10,13 @@
                 <div class="card-body">
         @csrf
         @if ( isset($gift) )
-            <gift-create method="patch" url="/gift/{{ $gift->id }}" gift="{{ $gift }}" ></gift-create>
+                <gift-create method="patch" url="/gift/{{ $gift->id }}" gift="{{ $gift }}" ></gift-create>
         @else
-            <gift-create method="post" url="/gift/create/" gift=""></gift-create>
+            @if (isset($purchaser))
+                <gift-create purchaser="{{ $purchaser }}" receiver="{{ $receiver }}" method="post" url="/gift/create/" gift=""></gift-create>
+            @else
+                <gift-create method="post" url="/gift/create/" gift=""></gift-create>
+            @endif
         @endif
                 </div>
             </div>
