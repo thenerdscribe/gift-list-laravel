@@ -13,7 +13,7 @@
                 <gift-create method="patch" url="/gift/{{ $gift->id }}" gift="{{ $gift }}" ></gift-create>
         @else
             @if (isset($purchaser))
-                <gift-create purchaser="{{ $purchaser }}" receiver="{{ $receiver }}" method="post" url="/gift/create/" gift=""></gift-create>
+                <gift-create else-added="{{ $elseAdded }}" purchaser="{{ $purchaser }}" receiver="{{ $receiver }}" method="post" url="/gift/create/" gift=""></gift-create>
             @else
                 <gift-create method="post" url="/gift/create/" gift=""></gift-create>
             @endif

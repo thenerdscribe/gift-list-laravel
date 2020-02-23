@@ -55,7 +55,7 @@
 <script>
 import axios from "axios";
 export default {
-  props: ["gift", "url", "method", "purchaser", "receiver"],
+  props: ["gift", "url", "method", "purchaser", "receiver", "elseAdded"],
   data() {
     return {
       status: null,
@@ -65,7 +65,8 @@ export default {
         description: "",
         url: "",
         purchaser: this.purchaser,
-        receiver: this.receiver
+        receiver: this.receiver,
+        someone_else_added: this.elseAdded
       },
       show: true
     };

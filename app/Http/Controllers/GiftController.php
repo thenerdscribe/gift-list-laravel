@@ -49,6 +49,7 @@ class GiftController extends Controller
         $gift->price = $request->price;
         $gift->receiver_id = $request->receiver ?? Auth::id();
         $gift->purchaser_id = $request->purchaser ?? null;
+        $gift->someone_else_added = $request->someone_else_added ?? false;
         $gift->save();
     }
 
@@ -70,7 +71,8 @@ class GiftController extends Controller
     {
         return view('gift.create', [
             'purchaser' => Auth::id(),
-            'receiver'  => $receiverId
+            'receiver'  => $receiverId,
+            'elseAdded' => true
         ]);
     }
 

@@ -26,7 +26,7 @@ class HomeController extends Controller
     public function index()
     {
         if (Auth::check()) {
-            $gifts = Gift::where('receiver_id', Auth::id())->get();
+            $gifts = Gift::where('receiver_id', Auth::id())->where('someone_else_added', false)->get();
             $purchases = Gift::with('receiver')->where('purchaser_id', Auth::id())->get();
             return view('home', [
                 'gifts' => $gifts,
