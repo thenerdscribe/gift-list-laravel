@@ -25,6 +25,8 @@
     },
     "dependencies": {
         "bootstrap-vue": "^2.4.2",
-        "vue-resource": "^1.5.1"
+        "tailwindcss": "^1.2.0",
+        "vue-resource": "^1.5.1",
+        "vue-tailwind": "^0.4.5"
     }
 }

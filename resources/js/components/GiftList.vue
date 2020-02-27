@@ -1,12 +1,10 @@
 <template>
   <div>
-    <b-form v-if="this.parsedGifts && this.filter" @submit="giftSearch">
-      <b-form-group id="input-group-search" label="Search gifts" label-for="search">
-        <b-form-input id="search" v-model="searchValue" type="text" placeholder="Search for gift"></b-form-input>
-      </b-form-group>
-      <b-button @click="clearSearch">Clear Search</b-button>
-      <b-button type="submit">Search Gifts</b-button>
-    </b-form>
+    <form v-if="this.parsedGifts && this.filter" @submit="giftSearch">
+      <t-input id="search" v-model="searchValue" type="text" placeholder="Search for gift" />
+      <t-button @click="clearSearch">Clear Search</t-button>
+      <t-button type="submit">Search Gifts</t-button>
+    </form>
     <ul class="gift-list">
       <li v-bind:key="gift.id" v-for="gift in this.parsedGifts">
         <gift
@@ -40,40 +38,38 @@ export default {
       e.preventDefault();
       const receiver = this.parsedGifts[0].receiver_id;
       const user = this.parsedGifts[0][this.filter];
-      this.$http
+      window.axios
         .get(`/gift/search/?searchQuery=${this.searchValue}&user=${receiver}`)
         .then(async response => {
-          const data = await response.json();
-          const filteredGifts = data.filter(gift => gift[this.filter] == user);
+          const filteredGifts = response.data.filter(
+            gift => gift[this.filter] == user
+          );
           this.localGifts = filteredGifts;
         });
     },
     clearSearch() {
       this.searchValue = "";
       const user = this.parsedGifts[0].receiver_id;
-      this.$http
+      window.axios
         .get(`/gift/search/?searchQuery=&user=${user}`)
         .then(async response => {
-          const data = await response.json();
-          this.localGifts = data;
+          this.localGifts = response.data;
         });
     },
     unClaim(giftId, event) {
       event.preventDefault();
-      this.$http.patch(`/gift/unclaim/${giftId}`).then(async response => {
-        const data = await response.json();
-        this.localGifts = data;
+      window.axios.patch(`/gift/unclaim/${giftId}`).then(async response => {
+        this.localGifts = response.data;
       });
     },
     destroy(giftId, event) {
       event.preventDefault();
-      this.$http.delete(`/gift/${giftId}`).then(async response => {
-        const data = await response.json();
-        this.localGifts = data;
+      window.axios.delete(`/gift/${giftId}`).then(async response => {
+        this.localGifts = response.data;
       });
     },
     updateGift(gift, event) {
-      this.$http.patch(`/gift/${gift.id}`, gift);
+      window.axios.patch(`/gift/${gift.id}`, gift);
     }
   },
   computed: {

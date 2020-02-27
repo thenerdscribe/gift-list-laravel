@@ -73,7 +73,7 @@
             </div>
         </nav>
 
-        <main>
+        <main class="container mx-auto max-w-2xl">
             @yield('content')
         </main>
     </div>

@@ -4,16 +4,14 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require("bootstrap");
+require("./bootstrap");
 
 window.Vue = require("vue");
 
-import BootstrapVue from "bootstrap-vue"; //Importing
-var Vue = require("vue");
-var VueResource = require("vue-resource");
+import Vue from "vue";
+import VueTailwind from "vue-tailwind";
 
-Vue.use(VueResource);
-Vue.use(BootstrapVue); // Telling Vue to use this in whole application
+Vue.use(VueTailwind);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -33,23 +31,12 @@ files.keys().map(key =>
     )
 );
 
-Vue.component(
-    "example-component",
-    require("./components/ExampleComponent.vue").default
-);
-
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-var csrf_token = document
-    .querySelector('meta[name="csrf-token"]')
-    .getAttribute("content");
-Vue.http.headers.common["X-CSRF-TOKEN"] = csrf_token;
+
 const app = new Vue({
-    el: "#app",
-    data: {
-        token: csrf_token
-    }
+    el: "#app"
 });
