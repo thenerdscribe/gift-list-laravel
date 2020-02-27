@@ -52,6 +52,7 @@ export default {
       this.searchValue = "";
       const user = this.parsedGifts[0].receiver_id;
       this.$http
+        // Need to just get all gifts, not do an empty search
         .get(`/gift/search/?searchQuery=&user=${user}`)
         .then(async response => {
           const data = await response.json();
@@ -73,6 +74,7 @@ export default {
       });
     },
     updateGift(gift, event) {
+      // Needs to update the individual gift state
       this.$http.patch(`/gift/${gift.id}`, gift);
     }
   },

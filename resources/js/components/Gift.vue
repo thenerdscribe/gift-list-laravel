@@ -65,8 +65,16 @@ export default {
   },
   watch: {
     purchased(newVal, oldVal) {
-      console.log(newVal);
       this.updateGift({ ...this.gift, purchased: newVal });
+    },
+    received(newVal, oldVal) {
+      this.updateGift({ ...this.gift, received: newVal });
+    },
+    wrapped(newVal, oldVal) {
+      this.updateGift({ ...this.gift, wrapped: newVal });
+    },
+    given(newVal, oldVal) {
+      this.updateGift({ ...this.gift, given: newVal });
     }
   }
 };
